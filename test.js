@@ -1,5 +1,5 @@
 var test = require('tape'),
-	robot = require('./index');
+    robot = require('./index');
 
 test('robot should not be able to MOVE, as it is not yet on the tabe!', function(t) {
     t.plan(1);
