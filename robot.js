@@ -8,6 +8,7 @@ function place(orientation) {
         y = parseInt(orientation[1]);
 
     if (x < 0 || x > 4 || y < 0 || y > 4) {
+        // if coordinates are outside the dimensions of the table, return message and don't change robot
         return console.log('No table found at coordinates:' + x + ',' + y);
     }
     robot.x = x;
@@ -74,6 +75,7 @@ function run() {
                 move();
                 break;
             case "LEFT":
+                // find current compass index for robot orientation and add 3 in mod 4 counting to go back one count
                 robot.f = compass[(compass.indexOf(robot.f) + 3) % 4];
                 break;
             case "RIGHT":
