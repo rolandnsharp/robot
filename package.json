@@ -1,0 +1,22 @@
+{
+  "name": "robot",
+  "version": "0.0.0",
+  "description": "robot =====",
+  "main": "r.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rolandnsharp/robot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolandnsharp/robot/issues"
+  },
+  "homepage": "https://github.com/rolandnsharp/robot",
+  "dependencies": {
+    "read": "^1.0.5"
+  }
+}
