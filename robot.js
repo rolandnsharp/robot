@@ -49,6 +49,7 @@ function move() {
 
 function run() {
     read({prompt: 'command: '}, function(error, command) {
+        // provides clean output when using ctrl + c
         if (error) {
             console.log();
             process.exit();
@@ -67,7 +68,7 @@ function run() {
                 move();
                 break;
             case "LEFT":
-                // find current compass index for robot orientation and add 3 in mod 4 counting to go back one count
+                // find current compass index for robot orientation and add 3, in mod 4 counting, to go back one count
                 robot.f = compass[(compass.indexOf(robot.f) + 3) % 4];
                 break;
             case "RIGHT":
