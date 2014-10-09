@@ -2,7 +2,7 @@ function move(robot) {
     switch (robot.f) {
         case "NORTH":
             if (robot.y + 1 > 4) {
-                console.log("There is no more table NORTH of here.");
+                console.log('out of bounds!');
             } else {
             robot.y++;
             }
@@ -10,7 +10,7 @@ function move(robot) {
 
         case "EAST":
             if (robot.x + 1 > 4) {
-                console.log("There is no more table EAST of here.");
+                console.log('out of bounds!');
             } else {
             robot.x++;
             }
@@ -18,7 +18,7 @@ function move(robot) {
 
         case "SOUTH":
             if (robot.y - 1 < 0) {
-                console.log("There is no more table SOUTH of here.");
+                console.log('out of bounds!');
             } else {
             robot.y--;
             }
@@ -26,7 +26,7 @@ function move(robot) {
 
         case "WEST":
             if (robot.x - 1 < 0) {
-                console.log("There is no more table WEST of here.");
+                console.log('out of bounds!');
             } else {
             robot.x--;
             }
@@ -34,5 +34,4 @@ function move(robot) {
     }
     return robot;
 }
-
 module.exports = move;

@@ -1,6 +1,25 @@
-robot
-=====
+Robot Test
+==========
 
-to run type: `node index`
+# Getting Started
 
-to test type: `npm test`
+```
+npm install -g robot-test
+```
+# Usage
+
+Simply type `robot` to start the program.
+
+# Valid Commands
+
+PLACE X,Y,F
+MOVE
+LEFT
+RIGHT
+REPORT
+
+# Testing
+
+```
+npm test
+```
