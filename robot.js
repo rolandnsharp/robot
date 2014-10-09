@@ -6,7 +6,6 @@ function place(orientation) {
     var orientation = orientation.split(','),
         x = parseInt(orientation[0]),
         y = parseInt(orientation[1]);
-
     if (x < 0 || x > 4 || y < 0 || y > 4) {
         // if coordinates are outside the dimensions of the table, return message and don't change robot
         return console.log('No table found at coordinates:' + x + ',' + y);
@@ -30,7 +29,6 @@ function move() {
                 return console.log("There is no more table EAST.");
             }
             robot.x++;
-
             break;
 
         case "SOUTH":
@@ -50,23 +48,17 @@ function move() {
 }
 
 function run() {
-    read({
-        prompt: 'command: '
-
-    }, function(error, command) {
+    read({prompt: 'command: '}, function(error, command) {
         if (error) {
             console.log();
             process.exit();
         }
-
         var commandKeyWord = command.split(' ')[0].toUpperCase();
-
         // Only allow 'PLACE' command if robot is not on the table
         if (['MOVE', 'LEFT', 'RIGHT', 'REPORT'].indexOf(commandKeyWord) !== -1 && Object.keys(robot).length === 0) {
             console.log('There is no robot on the table...');
             return run();
         }
-
         switch (commandKeyWord) {
             case "PLACE":
                 place(command.split(' ')[1]);
