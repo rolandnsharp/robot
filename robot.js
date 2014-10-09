@@ -19,28 +19,28 @@ function move() {
     switch (robot.f) {
         case "NORTH":
             if (robot.y + 1 > 4) {
-                return console.log("There is no more table NORTH.");
+                return console.log("There is no more table NORTH of here.");
             }
             robot.y++;
             break;
 
         case "EAST":
             if (robot.x + 1 > 4) {
-                return console.log("There is no more table EAST.");
+                return console.log("There is no more table EAST of here.");
             }
             robot.x++;
             break;
 
         case "SOUTH":
             if (robot.y - 1 < 0) {
-                return console.log("There is no more table SOUTH.");
+                return console.log("There is no more table SOUTH of here.");
             }
             robot.y--;
             break;
 
         case "WEST":
             if (robot.x - 1 < 0) {
-                return console.log("There is no more table WEST.");
+                return console.log("There is no more table WEST of here.");
             }
             robot.x--;
             break;
@@ -54,8 +54,11 @@ function run() {
             console.log();
             process.exit();
         }
+
+        commander(command);
+
         var commandKeyWord = command.split(' ')[0].toUpperCase();
-        // Only allow 'PLACE' command if robot is not on the table
+        // if the robot is not yet on the table, only allow the PLACE command.
         if (['MOVE', 'LEFT', 'RIGHT', 'REPORT'].indexOf(commandKeyWord) !== -1 && Object.keys(robot).length === 0) {
             console.log('There is no robot on the table...');
             return run();
