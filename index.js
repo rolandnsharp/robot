@@ -3,7 +3,7 @@
 var read = require('read'),
     move = require('./move'),
     place = require('./place'),
-    robot = {},
+    robot = {}, // global variable should be okay in this case...
     compass = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
 
 function commander(command, callback) {
@@ -16,8 +16,11 @@ function commander(command, callback) {
     }
     switch (commandKeyWord) {
         case "PLACE":
-        //todo: error handling if only place is used with no arguments
+            try {
             robot = place(command.split(' ')[1], robot);
+            } catch (e){
+                console.log('Please provide valid cartesian coordinates and orientation with the `PLACE` command.');
+            }
             break;
         case "MOVE":
             robot = move(robot);
