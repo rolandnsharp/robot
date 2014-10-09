@@ -2,7 +2,7 @@
   "name": "robot",
   "version": "0.0.0",
   "description": "robot =====",
-  "main": "r.js",
+  "main": "index.js",
   "scripts": {
     "test": "node test.js | tap-spec"
   },

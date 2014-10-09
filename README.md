@@ -1,6 +1,6 @@
 robot
 =====
 
-to run type: `node robot`
+to run type: `node index`
 
 to test type: `npm test`
