@@ -1,90 +1,59 @@
 var read = require('read'),
+    move = require('./move'),
+    place = require('./place'),
     robot = {},
     compass = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
 
-function place(orientation) {
-    var orientation = orientation.split(','),
-        x = parseInt(orientation[0]),
-        y = parseInt(orientation[1]);
-    if (x < 0 || x > 4 || y < 0 || y > 4) {
-        // if coordinates are outside the dimensions of the table, return message and don't change robot
-        return console.log('No table found at coordinates:' + x + ',' + y);
+function commander(command, callback) {
+    var commandKeyWord = command.split(' ')[0].toUpperCase();
+    // if the robot is not yet on the table, only allow the PLACE command.
+    if (['MOVE', 'LEFT', 'RIGHT', 'REPORT'].indexOf(commandKeyWord) !== -1 && Object.keys(robot).length === 0) {
+        console.log('There is no robot on the table...');
+        return run();
     }
-    robot.x = x;
-    robot.y = y;
-    robot.f = orientation[2].toUpperCase();
-}
-
-function move() {
-    switch (robot.f) {
-        case "NORTH":
-            if (robot.y + 1 > 4) {
-                return console.log("There is no more table NORTH of here.");
-            }
-            robot.y++;
+    switch (commandKeyWord) {
+        case "PLACE":
+        //todo: error handling if only place is used with no arguments
+            robot = place(command.split(' ')[1], robot);
             break;
-
-        case "EAST":
-            if (robot.x + 1 > 4) {
-                return console.log("There is no more table EAST of here.");
-            }
-            robot.x++;
+        case "MOVE":
+            robot = move(robot);
             break;
-
-        case "SOUTH":
-            if (robot.y - 1 < 0) {
-                return console.log("There is no more table SOUTH of here.");
-            }
-            robot.y--;
+        case "LEFT":
+            // find current compass index for robot orientation and add 3, in mod 4 counting, to go back one count
+            robot.f = compass[(compass.indexOf(robot.f) + 3) % 4];
             break;
-
-        case "WEST":
-            if (robot.x - 1 < 0) {
-                return console.log("There is no more table WEST of here.");
-            }
-            robot.x--;
+        case "RIGHT":
+            robot.f = compass[(compass.indexOf(robot.f) + 1) % 4];
+            break;
+        case "REPORT":
+            console.log(robot);
+            break;
+        default:
+            console.log('Invalid command:', command);
             break;
     }
+    callback(robot);
 }
 
 function run() {
-    read({prompt: 'command: '}, function(error, command) {
+    read({
+        prompt: 'command: '
+    }, function(error, command) {
         // provides clean output when using ctrl + c
         if (error) {
             console.log();
             process.exit();
         }
 
-        commander(command);
+        commander(command, function() {
+            run();
+        });
 
-        var commandKeyWord = command.split(' ')[0].toUpperCase();
-        // if the robot is not yet on the table, only allow the PLACE command.
-        if (['MOVE', 'LEFT', 'RIGHT', 'REPORT'].indexOf(commandKeyWord) !== -1 && Object.keys(robot).length === 0) {
-            console.log('There is no robot on the table...');
-            return run();
-        }
-        switch (commandKeyWord) {
-            case "PLACE":
-                place(command.split(' ')[1]);
-                break;
-            case "MOVE":
-                move();
-                break;
-            case "LEFT":
-                // find current compass index for robot orientation and add 3, in mod 4 counting, to go back one count
-                robot.f = compass[(compass.indexOf(robot.f) + 3) % 4];
-                break;
-            case "RIGHT":
-                robot.f = compass[(compass.indexOf(robot.f) + 1) % 4];
-                break;
-            case "REPORT":
-                console.log(robot);
-                break;
-            default:
-                console.log('Invalid command:', command);
-                break;
-        }
-        run();
     });
 }
 run();
+
+module.exports = {
+    commander: commander
+};
