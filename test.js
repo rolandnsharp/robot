@@ -1,5 +1,5 @@
 var test = require('tape'),
-	robot = require('./robot');
+	robot = require('./index');
 
 test('robot is placed correctly at position 1,1,SOUTH', function(t) {
     t.plan(3);
